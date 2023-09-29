@@ -99,6 +99,38 @@ use EigTech;
    );
    
    
+   -- tabela relatorio --
+   
+   create table relatorio (
+   idRelatorio int primary key auto_increment,
+   totalMaquinas int,
+   maquinasParadas int,
+   totalAlertaUrgente int,
+   totalAlertaAtencao int,
+   fkLab int,
+  constraint fkLab foreign key (fkLab) references laboratorio (idLaboratorio),
+   fkInst int,
+  constraint fkInst foreign key (fkInst) references instituição (idInstitucional)
+   );
+   
+   
+   
+   -- tabela alerta --
+   
+   create table alertas (
+   idAlerta int primary key auto_increment,
+   tipo varchar(8),
+   constraint chkTipoAlerta check (tipo in('urgente' , 'atenção')),
+   componente varchar(20),
+   dataHora datetime,
+   fkMaquinaAlerta int,
+  constraint fkMaquinaAlerta foreign key (fkMaquinaAlerta) references maquina (idMaquina)
+   );
+   
+   
+   
+   
+   
    
    -- insert tabela instituição --
    
@@ -180,9 +212,29 @@ use EigTech;
 (null ,'2023-08-20 09:30:01', 63.12 , 41.0 , 36.22 , 4.56 , 1 , true ,1);
       
       
+         -- insert tabela relatorio --
+         
+   insert into relatorio values
+    (null , 20 , 7 , 5 , 7 , 2 , 1),
+    (null , 15 , 5 , 2 , 4 , 1 , 2),
+	(null , 30 , 2 , 1 , 5 , 1 , 3),
+	(null , 20 , 10 , 10 , 4 , 1 , 1),
+	(null , 30 , 8 , 7 , 2 , 2 , 2),
+	(null , 10 , 3 , 2 , 1 , 1 , 4);
+         
+         
+            -- insert tabela alertas --
       
-      
-      
+      insert into alertas values
+      (null , 'urgente' , 'cpu' ,'2023-06-18 17:11:22' , 1),
+      (null , 'urgente' , 'disco' ,'2023-06-17 11:21:11' , 2),
+      (null , 'atenção' , 'rede' ,'2023-06-19 21:09:01' , 1),
+      (null , 'urgente' , 'memória' ,'2023-06-15 06:32:09' , 3),
+      (null , 'atenção' , 'cpu' ,'2023-06-19 08:05:12' , 1),
+      (null , 'urgente' , 'disco' ,'2023-06-16 15:07:24' , 4),
+      (null , 'atenção' , 'memória' ,'2023-06-18 16:15:32' , 2),
+      (null , 'atenção' , 'rede' ,'2023-06-18 16:22:07' , 3),
+      (null , 'atenção' , 'cpu' ,'2023-06-17 15:21:01' , 5);
       
       
       
