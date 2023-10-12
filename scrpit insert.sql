@@ -79,6 +79,7 @@ insert into acesso values
  -- insert na tabela acessoUsuario --
  insert into acessoUsuario values
 (null , 1 , 1 , 1 , '2023-05-08'),
+(null , 1 , 1 , 2 , '2023-05-08'),
 (null , 2 , 2 , 1 , '2023-05-08'),
 (null , 3 , 3 , 2 , '2023-05-08'),
 (null , 4 , 4 , 2 , '2023-05-08'),
