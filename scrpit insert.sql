@@ -91,6 +91,7 @@ insert into acesso values
  -- insert na tabela alertas --
  insert into Alertas values
 (null , 'urgente' , 'CPU' , 95.7 , '2023-05-08 10:00:01' , 1 , 1),
+(null , 'urgente' , 'CPU' , 95.7 , '2023-10-08 10:00:01' , 1 , 1),
 (null , 'atenção' , 'disco' , 90 , '2023-05-08 04:00:40' , 1 , 2),
 (null , 'urgente' , 'CPU' , 98.2 , '2023-05-09 20:30:00' , 2 , 1),
 (null , 'atenção' , 'ram' , 87.1 , '2023-05-09 10:00:00' , 3 , 3),
