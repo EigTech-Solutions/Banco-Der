@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS parametros_monitoramento (
   minRam FLOAT NOT NULL,
   maxRam FLOAT NOT NULL,
   minQtdDispositivosConectados INT NOT NULL,
-  maxQtdDispositivosConectados INT NOT NULL
+  maxQtdDispositivosConectados INT NOT NULL,
+  minLatenciaRede FLOAT NOT NULL,
+  maxLatenciaRede FLOAT NOT NULL
 );
 
 -- Tabela instituicao
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS laboratorio (
 -- Tabela maquina
 CREATE TABLE IF NOT EXISTS maquina (
   idMaquina INT PRIMARY KEY AUTO_INCREMENT,
-  numeroDeSerie CHAR(8) NOT NULL,
+  numeroDeSerie CHAR(12) NOT NULL,
   ipMaquina VARCHAR(12) NOT NULL,
   sistemaOperacional VARCHAR(30) NOT NULL,
   tipoDisco VARCHAR(45) NOT NULL,
@@ -79,11 +81,11 @@ CREATE TABLE IF NOT EXISTS dados_monitoramento (
   cpu FLOAT NOT NULL,
   disco FLOAT NOT NULL,
   memoriaRam FLOAT NOT NULL,
-  pingRede FLOAT NOT NULL,
+  latenciaRede FLOAT NOT NULL,
   uploadRede FLOAT NOT NULL,
   downloadRede VARCHAR(45) NOT NULL,
   qtdDispositivosConectados INT NOT NULL,
-  fonteEnergia TINYINT NOT NULL,
+  fonteEnergia TINYINT NOT NULL, CONSTRAINT chk_fonteEnergia CHECK (fonteEnergia IN (0, 1)),
   dataHora DATETIME NOT NULL,
   PRIMARY KEY (idMonitoramento, fkMaquina),
   FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina)
@@ -117,6 +119,7 @@ CREATE TABLE IF NOT EXISTS Alertas (
   dataHora DATETIME NOT NULL,
   fkMonitoramento INT NOT NULL,
   fkMaquina INT NOT NULL,
+  lido TINYINT  NOT NULL, CONSTRAINT chk_lido CHECK (lido IN (0, 1)),
   PRIMARY KEY (idAlertas, fkMonitoramento, fkMaquina),
   FOREIGN KEY (fkMonitoramento) REFERENCES dados_monitoramento (idMonitoramento),
   FOREIGN KEY (fkMaquina) REFERENCES dados_monitoramento (fkMaquina)
