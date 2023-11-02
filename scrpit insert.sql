@@ -3,7 +3,7 @@
 
 
 -- insert na tabela parametros_monitoramento --
-insert into parametros_monitoramento values
+insert into parametrosMonitoramento values
 (null , 18.5 , 90 , 25 , 85 , 20 , 90 , 1 , 3, 100, 300 ),
 (null , 20.5 , 80 , 31.5 , 85.5 , 21.7 , 92.2 , 2 , 3, 100, 300),
 (null , 21.5 , 82 , 30 , 80.5 , 20.5 , 95 , 2 , 2, 100, 300 ),
@@ -25,42 +25,42 @@ insert into instituicao values
 
 -- insert na tabela usuario --
 insert into usuario values
-(null , 1 , 'enzo stane' , 'enzin@gmail.com' , '2207' , '11933791155'),
-(null , 2 , 'joao noleto' , 'noleto@gmail.com' , '1234' , '11931791956'),
-(null , 1 , 'pedro padro' , 'pedro@gmail.com' , '0000' , '11932791857'),
-(null , 3 , 'caua ribeiro' , 'ribeiro@gmail.com' , '9876' , '11934791758'),
-(null , 4 , 'khauany tenorio' , 'kakau@gmail.com' , '7777' , '11935791659'),
-(null , 1 , 'inacio oliveira' , 'inacio@gmail.com' , '0101' , '11936791550');
+(null , 2 , 'enzo stane' , 'enzin@gmail.com' , '2207' , '11933791155'),
+(null , 3 , 'joao noleto' , 'noleto@gmail.com' , '1234' , '11931791956'),
+(null , 2 , 'pedro padro' , 'pedro@gmail.com' , '0000' , '11932791857'),
+(null , 4 , 'caua ribeiro' , 'ribeiro@gmail.com' , '9876' , '11934791758'),
+(null , 5 , 'khauany tenorio' , 'kakau@gmail.com' , '7777' , '11935791659'),
+(null , 2 , 'inacio oliveira' , 'inacio@gmail.com' , '0101' , '11936791550');
 
 
 
 -- insert na tabela laboratorio --
 insert into laboratorio values
-(null , 1 , 'laboratorio de codigos' , '3', 1 ),
-(null , 2 , 'informática' , '2', 2 ),
-(null , 1 , 'laboratorio' , '1', 3 ),
-(null , 3 , 'laboratorio de estudos' , '7', 4 ),
-(null , 4 , 'laboratorio de codigos' , '7', 1 ),
-(null , 2 , 'sala de estudos' , '5', 2 ),
-(null , 3 , 'laboratorio' , '8', 5 ),
-(null , 4 , 'laboratorio de estudos' , '10', 6 );
+(null , 1 , 'laboratorio de codigos' , '3', 2 ),
+(null , 2 , 'informática' , '2', 3),
+(null , 1 , 'laboratorio' , '1', 4),
+(null , 3 , 'laboratorio de estudos' , '7',5 ),
+(null , 4 , 'laboratorio de codigos' , '7',2 ),
+(null , 2 , 'sala de estudos' , '5', 3 ),
+(null , 3 , 'laboratorio' , '8', 6 ),
+(null , 4 , 'laboratorio de estudos' , '10', 7 );
       
 
   
     -- insert na tabela maquina --
 insert into maquina values
-(null , '12345678' , '123173125123' , 'windows' , 'SSD' , '8GB' , '16GB' , 'intel 9' , 'ativado' , '2023-09-21' , null , 1 , 1 ),
-(null , '87654321' , '323131211242' , 'windows' , 'SSD' , '4GB' , '8GB' , 'intel 7' , 'ativado' , '2023-10-11' , null , 1 , 2 ),
-(null , '12121212' , '123182312112' , 'windows' , 'HD' , '8GB' , '4GB' , 'intel 5' , 'inativado' , '2023-07-10' , '2023-10-01' , 2 , 2 ),
-(null , '01010101' , '723193120126' , 'windows' , 'SSD' , '4GB' , '16GB' , 'intel 5' , 'inativado' , '2023-10-09' , '2023-12-25' , 1 ,3 ),
-(null , '12345671' , '923103128127' , 'windows' , 'HD' , '16GB' , '8GB' , 'intel 5' , 'ativado' , '2023-05-02' , null , 2 , 1 ),
-(null , '12345672' , '423103129128' , 'windows' , 'HD' , '8GB' , '16GB' , 'intel 7' , 'ativado' , '2023-10-22' , null , 2 , 2 );
+(null , '12345678' , '123173125123' , 'windows' , 'SSD' , '8GB' , '16GB' , 'intel 9' , 'ativado' , '2023-09-21' , null , 1 , 2 ),
+(null , '87654321' , '323131211242' , 'windows' , 'SSD' , '4GB' , '8GB' , 'intel 7' , 'ativado' , '2023-10-11' , null , 1 , 3),
+(null , '12121212' , '123182312112' , 'windows' , 'HD' , '8GB' , '4GB' , 'intel 5' , 'inativado' , '2023-07-10' , '2023-10-01' , 2 , 3),
+(null , '01010101' , '723193120126' , 'windows' , 'SSD' , '4GB' , '16GB' , 'intel 5' , 'inativado' , '2023-10-09' , '2023-12-25' , 1 , 4),
+(null , '12345671' , '923103128127' , 'windows' , 'HD' , '16GB' , '8GB' , 'intel 5' , 'ativado' , '2023-05-02' , null , 2 , 2 ),
+(null , '12345672' , '423103129128' , 'windows' , 'HD' , '8GB' , '16GB' , 'intel 7' , 'ativado' , '2023-10-22' , null , 2 , 3 );
 
 
 
 
     -- insert na tabela dados_monitoramento  --
-insert into dados_monitoramento values
+insert into medicoes values
 (null , 1 , 77.7 , 45.5 , 87.2 , 798 , 550 , 473 , 2 ,true , '2023-05-08 10:00:00' ),
 (null , 2 , 57.2 , 47.9 , 80.5 , 995 , 500 , 470 , 1 ,true , '2023-05-08 10:00:00' ),
 (null , 1 , 88.9 , 33.7 , 85.4 , 298 , 505 , 480 , 2 ,true , '2023-05-08 10:00:00' ),
@@ -78,13 +78,13 @@ insert into acesso values
 
  -- insert na tabela acessoUsuario --
  insert into acessoUsuario values
-(null , 1 , 1 , 1 , '2023-05-08'),
-(null , 1 , 1 , 2 , '2023-05-08'),
-(null , 2 , 2 , 1 , '2023-05-08'),
-(null , 3 , 3 , 2 , '2023-05-08'),
-(null , 4 , 4 , 2 , '2023-05-08'),
-(null , 5 , 2 , 1 , '2023-05-08'),
-(null , 6 , 1 , 2 , '2023-05-08');
+(null , 2 , 1 , 2 , '2023-05-08'),
+(null , 2 , 1 , 3 , '2023-05-08'),
+(null , 3 , 2 , 2 , '2023-05-08'),
+(null , 4 , 3 , 3 , '2023-05-08'),
+(null , 5 , 4 , 3 , '2023-05-08'),
+(null , 6 , 2 , 2 , '2023-05-08'),
+(null , 7 , 1 , 3 , '2023-05-08');
 
 
 

@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS dataguard DEFAULT CHARACTER SET utf8;
 USE dataguard;
 
 -- Tabela parametros_monitoramento
-CREATE TABLE IF NOT EXISTS parametros_monitoramento (
+CREATE TABLE IF NOT EXISTS parametrosMonitoramento (
   idParametrosMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
   minCpu FLOAT NOT NULL,
   maxCpu FLOAT NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS instituicao (
   numeroEndereco VARCHAR(10) NOT NULL,
   complemento VARCHAR(50) NULL,
   fkParametrosMonitoramento INT NOT NULL,
-  FOREIGN KEY (fkParametrosMonitoramento) REFERENCES parametros_monitoramento (idParametrosMonitoramento)
+  FOREIGN KEY (fkParametrosMonitoramento) REFERENCES parametrosMonitoramento (idParametrosMonitoramento)
 );
 
 -- Tabela usuario
@@ -41,6 +41,25 @@ CREATE TABLE IF NOT EXISTS usuario (
   telefone VARCHAR(14) NULL,
   PRIMARY KEY (idUsuario, fkInstitucional),
   FOREIGN KEY (fkInstitucional) REFERENCES instituicao (idInstitucional)
+);
+
+-- Tabela acesso
+CREATE TABLE IF NOT EXISTS acesso (
+  idAcesso INT PRIMARY KEY AUTO_INCREMENT,
+  tipoAcesso ENUM('AdminEigtech', 'Admin', 'Técnico') NOT NULL
+);
+
+-- Tabela acessoUsuario
+CREATE TABLE IF NOT EXISTS acessoUsuario (
+  idAcessoUsuario INT AUTO_INCREMENT,
+  fkUsuario INT NOT NULL,
+  fkInstitucional INT NOT NULL,
+  fkAcesso INT NOT NULL,
+  dataAcessoUsuario DATE NOT NULL,
+  PRIMARY KEY (idAcessoUsuario, fkUsuario, fkInstitucional, fkAcesso),
+  FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario),
+  FOREIGN KEY (fkInstitucional) REFERENCES usuario (fkInstitucional),
+  FOREIGN KEY (fkAcesso) REFERENCES acesso (idAcesso)
 );
 
 -- Tabela laboratorio
@@ -61,10 +80,6 @@ CREATE TABLE IF NOT EXISTS maquina (
   numeroDeSerie CHAR(12) NOT NULL,
   ipMaquina VARCHAR(12) NOT NULL,
   sistemaOperacional VARCHAR(30) NOT NULL,
-  tipoDisco VARCHAR(45) NOT NULL,
-  capacidadeMemoriaDisco VARCHAR(45) NOT NULL,
-  capacidadeMemoriaRam VARCHAR(45) NOT NULL,
-  processador VARCHAR(45) NOT NULL,
   status VARCHAR(45) NOT NULL,
   dataCadastro VARCHAR(45) NOT NULL,
   dataDesativamento VARCHAR(45) NULL,
@@ -74,53 +89,63 @@ CREATE TABLE IF NOT EXISTS maquina (
   FOREIGN KEY (fkInstitucional) REFERENCES laboratorio (fkInstitucional)
 );
 
--- Tabela dados_monitoramento
-CREATE TABLE IF NOT EXISTS dados_monitoramento (
+-- Tabela componentes 
+CREATE TABLE IF NOT EXISTS componenteMonitorado (
+	idComponente INT AUTO_INCREMENT,
+    fkMaquina INT,
+    componente VARCHAR(50) NOT NULL, 
+    tipo VARCHAR(50) NOT NULL, 
+    descricaoAdicional VARCHAR(50), 
+    modelo VARCHAR(50) NOT NULL, 
+    marca VARCHAR(50), 
+    capacidadeTotal FLOAT NOT NULL, 
+    unidadeMedida ENUM('GB', 'MB') NOT NULL,
+	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina),
+    PRIMARY KEY (idComponente, fkMaquina)
+);
+
+-- Tabela medições
+CREATE TABLE IF NOT EXISTS medicoes (
   idMonitoramento INT AUTO_INCREMENT,
   fkMaquina INT NOT NULL,
-  cpu FLOAT NOT NULL,
-  disco FLOAT NOT NULL,
-  memoriaRam FLOAT NOT NULL,
-  latenciaRede FLOAT NOT NULL,
-  uploadRede FLOAT NOT NULL,
-  downloadRede VARCHAR(45) NOT NULL,
-  qtdDispositivosConectados INT NOT NULL,
-  fonteEnergia TINYINT NOT NULL, CONSTRAINT chk_fonteEnergia CHECK (fonteEnergia IN (0, 1)),
+  fkComponente INT NOT NULL,
+  valorConsumido FLOAT NOT NULL,
   dataHora DATETIME NOT NULL,
-  PRIMARY KEY (idMonitoramento, fkMaquina),
-  FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina)
-);
-
--- Tabela acesso
-CREATE TABLE IF NOT EXISTS acesso (
-  idAcesso INT PRIMARY KEY AUTO_INCREMENT,
-  tipoAcesso ENUM('Admin', 'Técnico') NOT NULL
-);
-
--- Tabela acessoUsuario
-CREATE TABLE IF NOT EXISTS acessoUsuario (
-  idAcessoUsuario INT AUTO_INCREMENT,
-  fkUsuario INT NOT NULL,
-  fkInstitucional INT NOT NULL,
-  fkAcesso INT NOT NULL,
-  dataAcessoUsuario DATE NOT NULL,
-  PRIMARY KEY (idAcessoUsuario, fkUsuario, fkInstitucional, fkAcesso),
-  FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario),
-  FOREIGN KEY (fkInstitucional) REFERENCES usuario (fkInstitucional),
-  FOREIGN KEY (fkAcesso) REFERENCES acesso (idAcesso)
+  PRIMARY KEY (idMonitoramento, fkMaquina, fkComponente),
+  FOREIGN KEY (fkComponente) REFERENCES componenteMonitorado (idComponente),
+  FOREIGN KEY (fkMaquina) REFERENCES componenteMonitorado (fkMaquina)
 );
 
 -- Tabela Alertas
 CREATE TABLE IF NOT EXISTS Alertas (
   idAlertas INT AUTO_INCREMENT,
   tipo VARCHAR(45) NOT NULL,
-  componente VARCHAR(45) NOT NULL,
-  valor FLOAT NOT NULL,
-  dataHora DATETIME NOT NULL,
-  fkMonitoramento INT NOT NULL,
-  fkMaquina INT NOT NULL,
   lido TINYINT  NOT NULL, CONSTRAINT chk_lido CHECK (lido IN (0, 1)),
-  PRIMARY KEY (idAlertas, fkMonitoramento, fkMaquina),
-  FOREIGN KEY (fkMonitoramento) REFERENCES dados_monitoramento (idMonitoramento),
-  FOREIGN KEY (fkMaquina) REFERENCES dados_monitoramento (fkMaquina)
+  fkMonitoramento INT NOT NULL,
+  fkComponente INT NOT NULL,
+  fkMaquina INT NOT NULL,
+  PRIMARY KEY (idAlertas, fkMonitoramento, fkComponente, fkMaquina),
+  FOREIGN KEY (fkMonitoramento) REFERENCES medicoes (idMonitoramento),
+  FOREIGN KEY (fkComponente) REFERENCES medicoes (fkComponente),
+  FOREIGN KEY (fkMaquina) REFERENCES medicoes (fkMaquina)
 ); 
+
+-- Insert dos parametros padrão de monitoramento das instituições
+INSERT INTO parametrosMonitoramento VALUES
+	(null , 18.5 , 90 , 25 , 85 , 20 , 90 , 1 , 3, 100, 300 );
+    
+ -- Insert na tabela acesso  --
+INSERT INTO acesso VALUES
+	(null , 'AdminEigtech'),
+	(null , 'Admin'),
+	(null , 'Técnico');    
+
+-- Insert da nossa instituição (Eigtech) ao sistema
+INSERT INTO instituicao VALUES
+	(null , 'Eigtech' , '00000000000000' , 'eigtechsolutions@gmail.com' , '11912345678' , '01414001' , '595' , '5 minutos da estação Consolação' , 1);
+    
+INSERT INTO usuario VALUES
+(null , 1 , 'Admim Eigtech' , 'eigtechsolutions@gmail.com' , '2023' , '11912345678');
+
+INSERT INTO acessoUsuario VALUES
+	(null, 1, 1, 1, '2023-11-01');
