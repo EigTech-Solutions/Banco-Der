@@ -129,16 +129,16 @@ CREATE TABLE IF NOT EXISTS Alertas (
   FOREIGN KEY (fkComponente) REFERENCES medicoes (fkComponente),
   FOREIGN KEY (fkMaquina) REFERENCES medicoes (fkMaquina)
 ); 
-
--- Insert dos parametros padrão de monitoramento das instituições
-INSERT INTO parametrosMonitoramento VALUES
-	(null , 18.5 , 90 , 25 , 85 , 20 , 90 , 1 , 3, 100, 300 );
     
  -- Insert na tabela acesso  --
 INSERT INTO acesso VALUES
 	(null , 'AdminEigtech'),
 	(null , 'Admin'),
 	(null , 'Técnico');    
+
+-- Inserindo dados na tabela parametrosMonitoramento
+INSERT INTO parametrosMonitoramento (minCpu, maxCpu, minDisco, maxDisco, minRam, maxRam, minQtdDispositivosConectados, maxQtdDispositivosConectados, minLatenciaRede, maxLatenciaRede)
+VALUES (10.0, 80.0, 20.0, 90.0, 30.0, 70.0, 5, 50, 1.0, 50.0);
 
 -- Insert da nossa instituição (Eigtech) ao sistema
 INSERT INTO instituicao VALUES

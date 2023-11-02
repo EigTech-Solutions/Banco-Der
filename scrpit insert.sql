@@ -1,99 +1,47 @@
+-- Inserindo dados na tabela instituicao
+INSERT INTO instituicao (nomeInstitucional, cnpj, email, telefone, cep, numeroEndereco, complemento, fkParametrosMonitoramento)
+VALUES ('Instituicao 1', '12345678901234', 'instituicao1@example.com', '1234567890', '12345678', '123', 'Complemento 1', 1);
 
--- fazendo insert nas tabelas --
+-- Inserindo dados na tabela usuario
+INSERT INTO usuario (fkInstitucional, nome, email, senha, telefone)
+VALUES (2, 'Enzo Stane', 'enzin@gmail.com', '2207', '987654321');
 
+-- Inserindo dados na tabela acessoUsuario
+INSERT INTO acessoUsuario (fkUsuario, fkInstitucional, fkAcesso, dataAcessoUsuario)
+VALUES (2, 2, 2, '2023-11-02'), (2, 2, 3, '2023-11-02');
 
--- insert na tabela parametros_monitoramento --
-insert into parametrosMonitoramento values
-(null , 18.5 , 90 , 25 , 85 , 20 , 90 , 1 , 3, 100, 300 ),
-(null , 20.5 , 80 , 31.5 , 85.5 , 21.7 , 92.2 , 2 , 3, 100, 300),
-(null , 21.5 , 82 , 30 , 80.5 , 20.5 , 95 , 2 , 2, 100, 300 ),
-(null , 18.5 , 90 , 25 , 85 , 20 , 90 , 1 , 3, 100, 300 ),
-(null , 18 , 85 , 20 , 85.2 , 25 , 92.7 , 2 , 2, 100, 300 );
+-- Inserindo dados na tabela laboratorio
+INSERT INTO laboratorio (fkInstitucional, nomeSala, numeroSala, fkResponsavel)
+VALUES (2, 'Laboratorio 1', '101', 2), (2, 'Laboratorio 2', '102', 2), (2, 'Laboratorio 3', '103', 2), (2, 'Laboratorio 4', '104', 2), (2, 'Laboratorio 5', '105', 1);
 
+-- Inserindo dados na tabela maquina
+INSERT INTO maquina (numeroDeSerie, ipMaquina, sistemaOperacional, status, dataCadastro, fkLaboratorio, fkInstitucional)
+VALUES ('123456789012', '192.168.1.1', 'Windows 10', 'Ativa', '2023-11-02', 1, 2),
+       ('234567890123', '192.168.1.2', 'Ubuntu 20.04', 'Ativa', '2023-11-02', 2, 2),
+       ('345678901234', '192.168.1.3', 'Windows Server 2019', 'Ativa', '2023-11-02', 3, 2),
+       ('456789012345', '192.168.1.4', 'macOS Big Sur', 'Ativa', '2023-11-02', 4, 2),
+       ('567890123456', '192.168.1.5', 'Linux Mint 20', 'Ativa', '2023-11-02', 5, 2);
 
+-- Inserindo dados na tabela componenteMonitorado
+INSERT INTO componenteMonitorado (fkMaquina, componente, tipo, descricaoAdicional, modelo, marca, capacidadeTotal, unidadeMedida)
+VALUES (1, 'CPU', 'Processador', 'Intel Core i5', 'i5-9600K', 'Intel', 8.0, 'GB'),
+       (2, 'Memória', 'RAM', 'HyperX', 'HyperX Fury', 'Kingston', 16.0, 'GB'),
+       (3, 'Disco', 'SSD', 'Samsung', '860 EVO', 'Samsung', 500.0, 'GB'),
+       (4, 'CPU', 'Processador', 'Apple', 'M1', 'Apple', 8.0, 'GB'),
+       (5, 'Memória', 'RAM', 'Corsair', 'Vengeance LPX', 'Corsair', 32.0, 'GB');
 
+-- Inserindo dados na tabela medicoes
+INSERT INTO medicoes (fkMaquina, fkComponente, valorConsumido, dataHora)
+VALUES (1, 1, 20.0, '2023-11-02 10:00:00'),
+       (2, 2, 10.0, '2023-11-02 10:05:00'),
+       (3, 3, 30.0, '2023-11-02 10:10:00'),
+       (4, 4, 15.0, '2023-11-02 10:15:00'),
+       (5, 5, 25.0, '2023-11-02 10:20:00');
 
--- insert na tabela instituicao --
-insert into instituicao values
-(null , 'ETEC guaianases' , '84810704000110' , 'etec.guaianases@gmail.com' , '11933791155' , '02261000' , '598' , 'ao lado do mequi1000' , 1 ),
-(null , 'ETEC tiradentes' , '74810704000111' , 'etec.tiradentes@gmail.com' , '11931791556' , '02362000' , '102' , 'na frente da praça' , 2 ),
-(null , 'ETEC parada inglesa' , '64810704000112' , 'etec.paradaInglesa@gmail.com' , '11932791457' , '02465000' , '55' , 'ao lado do posto Shell' , 3 ),
-(null , 'ETEC carandiru' , '54810704000113' , 'etec.carandiru@gmail.com' , '11934791358' , '02566000' , '22' , 'na esquina da av. zarki narchi' , 4 ),
-(null , 'ETEC jorge street' , '44810704000114' , 'etec.jorgeStreet@gmail.com' , '11935791259' , '02668000' , '1298' , 'dentro do parque' , 5 );
-
-
-
--- insert na tabela usuario --
-insert into usuario values
-(null , 2 , 'enzo stane' , 'enzin@gmail.com' , '2207' , '11933791155'),
-(null , 3 , 'joao noleto' , 'noleto@gmail.com' , '1234' , '11931791956'),
-(null , 2 , 'pedro padro' , 'pedro@gmail.com' , '0000' , '11932791857'),
-(null , 4 , 'caua ribeiro' , 'ribeiro@gmail.com' , '9876' , '11934791758'),
-(null , 5 , 'khauany tenorio' , 'kakau@gmail.com' , '7777' , '11935791659'),
-(null , 2 , 'inacio oliveira' , 'inacio@gmail.com' , '0101' , '11936791550');
-
-
-
--- insert na tabela laboratorio --
-insert into laboratorio values
-(null , 1 , 'laboratorio de codigos' , '3', 2 ),
-(null , 2 , 'informática' , '2', 3),
-(null , 1 , 'laboratorio' , '1', 4),
-(null , 3 , 'laboratorio de estudos' , '7',5 ),
-(null , 4 , 'laboratorio de codigos' , '7',2 ),
-(null , 2 , 'sala de estudos' , '5', 3 ),
-(null , 3 , 'laboratorio' , '8', 6 ),
-(null , 4 , 'laboratorio de estudos' , '10', 7 );
-      
-
-  
-    -- insert na tabela maquina --
-insert into maquina values
-(null , '12345678' , '123173125123' , 'windows' , 'SSD' , '8GB' , '16GB' , 'intel 9' , 'ativado' , '2023-09-21' , null , 1 , 2 ),
-(null , '87654321' , '323131211242' , 'windows' , 'SSD' , '4GB' , '8GB' , 'intel 7' , 'ativado' , '2023-10-11' , null , 1 , 3),
-(null , '12121212' , '123182312112' , 'windows' , 'HD' , '8GB' , '4GB' , 'intel 5' , 'inativado' , '2023-07-10' , '2023-10-01' , 2 , 3),
-(null , '01010101' , '723193120126' , 'windows' , 'SSD' , '4GB' , '16GB' , 'intel 5' , 'inativado' , '2023-10-09' , '2023-12-25' , 1 , 4),
-(null , '12345671' , '923103128127' , 'windows' , 'HD' , '16GB' , '8GB' , 'intel 5' , 'ativado' , '2023-05-02' , null , 2 , 2 ),
-(null , '12345672' , '423103129128' , 'windows' , 'HD' , '8GB' , '16GB' , 'intel 7' , 'ativado' , '2023-10-22' , null , 2 , 3 );
-
-
-
-
-    -- insert na tabela dados_monitoramento  --
-insert into medicoes values
-(null , 1 , 77.7 , 45.5 , 87.2 , 798 , 550 , 473 , 2 ,true , '2023-05-08 10:00:00' ),
-(null , 2 , 57.2 , 47.9 , 80.5 , 995 , 500 , 470 , 1 ,true , '2023-05-08 10:00:00' ),
-(null , 1 , 88.9 , 33.7 , 85.4 , 298 , 505 , 480 , 2 ,true , '2023-05-08 10:00:00' ),
-(null , 3 , 45.0 , 48.2 , 82.7 , 992 , 700 , 475 , 3 ,false , '2023-05-08 10:00:00' ),
-(null , 4 , 57.2 , 63.9 , 87.2 , 898 , 400 , 470 , 2 ,false , '2023-05-08 10:00:00' );
-
-
-
- -- insert na tabela acesso  --
-insert into acesso values
-(null , 'Admin'),
-(null , 'Técnico');
-
-
-
- -- insert na tabela acessoUsuario --
- insert into acessoUsuario values
-(null , 2 , 1 , 2 , '2023-05-08'),
-(null , 2 , 1 , 3 , '2023-05-08'),
-(null , 3 , 2 , 2 , '2023-05-08'),
-(null , 4 , 3 , 3 , '2023-05-08'),
-(null , 5 , 4 , 3 , '2023-05-08'),
-(null , 6 , 2 , 2 , '2023-05-08'),
-(null , 7 , 1 , 3 , '2023-05-08');
-
-
-
- -- insert na tabela alertas --
- insert into Alertas values
-(null , 'urgente' , 'CPU' , 95.7 , '2023-05-08 10:00:01' , 1 , 1, 0),
-(null , 'urgente' , 'CPU' , 95.7 , '2023-10-08 10:00:01' , 1 , 1, 0),
-(null , 'atenção' , 'disco' , 90 , '2023-05-08 04:00:40' , 1 , 2, 0),
-(null , 'urgente' , 'CPU' , 98.2 , '2023-05-09 20:30:00' , 2 , 1, 0),
-(null , 'atenção' , 'ram' , 87.1 , '2023-05-09 10:00:00' , 3 , 3, 0),
-(null , 'urgente' , 'CPU' , 95.5 , '2023-05-09 20:10:00' , 2 , 2, 0);
- 
+-- Inserindo dados na tabela Alertas
+INSERT INTO Alertas (tipo, lido, fkMonitoramento, fkComponente, fkMaquina)
+VALUES ('atenção', 0, 1, 1, 1),
+       ('urgente', 0, 2, 2, 2),
+       ('urgente', 0, 3, 3, 3),
+       ('atenção', 0, 4, 4, 4),
+       ('urgente', 0, 5, 5, 5);
