@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS componenteMonitorado (
     modelo VARCHAR(50) NOT NULL, 
     marca VARCHAR(50), 
     capacidadeTotal FLOAT NOT NULL, 
-    unidadeMedida ENUM('GB', 'MB') NOT NULL,
+    unidadeMedida ENUM('GB', 'MB', 'MS') NOT NULL,
 	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina),
     PRIMARY KEY (idComponente, fkMaquina)
 );

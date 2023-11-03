@@ -20,7 +20,8 @@ VALUES ('123456789012', '192.168.1.1', 'Windows 10', 'Ativa', '2023-11-02', 1, 2
        ('234567890123', '192.168.1.2', 'Ubuntu 20.04', 'Ativa', '2023-11-02', 2, 2),
        ('345678901234', '192.168.1.3', 'Windows Server 2019', 'Ativa', '2023-11-02', 3, 2),
        ('456789012345', '192.168.1.4', 'macOS Big Sur', 'Ativa', '2023-11-02', 4, 2),
-       ('567890123456', '192.168.1.5', 'Linux Mint 20', 'Ativa', '2023-11-02', 5, 2);
+       ('567890123456', '192.168.1.5', 'Linux Mint 20', 'Ativa', '2023-11-02', 5, 2),
+       ('567890123456', '192.168.1.6', 'Linux Mint 20', 'Inativa', '2023-11-02', 5, 2);
 
 -- Inserindo dados na tabela componenteMonitorado
 INSERT INTO componenteMonitorado (fkMaquina, componente, tipo, descricaoAdicional, modelo, marca, capacidadeTotal, unidadeMedida)
