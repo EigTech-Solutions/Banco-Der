@@ -82,11 +82,7 @@ CREATE TABLE IF NOT EXISTS maquina (
   numeroDeSerie VARCHAR(30) unique,
   ipMaquina VARCHAR(12) NOT NULL,
   sistemaOperacional VARCHAR(30) NOT NULL,
-<<<<<<< HEAD
-  status TINYINT  NOT NULL, CONSTRAINT chk_status CHECK (status IN (0, 1)),
-=======
-  status VARCHAR(45) default "Ativa",
->>>>>>> 457efa2b0b48498256268e0be22b9a8da2c3cab4
+  status TINYINT DEFAULT 1 NOT NULL, CONSTRAINT chk_status CHECK (status IN (0, 1)),
   dataCadastro VARCHAR(45) NOT NULL,
   dataDesativamento VARCHAR(45) NULL,
   fkLaboratorio INT,
