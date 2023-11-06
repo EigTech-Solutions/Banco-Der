@@ -21,7 +21,7 @@ VALUES ('123456789012', '192.168.1.1', 'Windows 10', 'Ativa', '2023-11-02', 1, 2
        ('345678901234', '192.168.1.3', 'Windows Server 2019', 'Ativa', '2023-11-02', 3, 2),
        ('456789012345', '192.168.1.4', 'macOS Big Sur', 'Ativa', '2023-11-02', 4, 2),
        ('567890123456', '192.168.1.5', 'Linux Mint 20', 'Ativa', '2023-11-02', 5, 2),
-       ('567890123456', '192.168.1.6', 'Linux Mint 20', 'Inativa', '2023-11-02', 5, 2);
+       ('123412341232', '192.168.1.6', 'Linux Mint 20', 'Inativa', '2023-11-02', 5, 2);
 
 
 -- Inserindo dados na tabela componenteMonitorado
@@ -52,7 +52,6 @@ VALUES ('atenção', 0, 1, 1, 1),
        
        select * from componentemonitorado;
        select * from medicoes;
-       select idComponente from componentemonitorado order by idComponente desc limit 1 ;
        select * from maquina;
        select * from laboratorio;
        select * from instituicao;
