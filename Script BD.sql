@@ -74,13 +74,19 @@ CREATE TABLE IF NOT EXISTS laboratorio (
   FOREIGN KEY (fkResponsavel) REFERENCES usuario (idUsuario)
 );
 
+
+
 -- Tabela maquina
 CREATE TABLE IF NOT EXISTS maquina (
   idMaquina INT PRIMARY KEY AUTO_INCREMENT,
-  numeroDeSerie CHAR(12) NOT NULL,
+  numeroDeSerie VARCHAR(30) unique,
   ipMaquina VARCHAR(12) NOT NULL,
   sistemaOperacional VARCHAR(30) NOT NULL,
+<<<<<<< HEAD
   status TINYINT  NOT NULL, CONSTRAINT chk_status CHECK (status IN (0, 1)),
+=======
+  status VARCHAR(45) default "Ativa",
+>>>>>>> 457efa2b0b48498256268e0be22b9a8da2c3cab4
   dataCadastro VARCHAR(45) NOT NULL,
   dataDesativamento VARCHAR(45) NULL,
   fkLaboratorio INT,
@@ -89,17 +95,18 @@ CREATE TABLE IF NOT EXISTS maquina (
   FOREIGN KEY (fkInstitucional) REFERENCES laboratorio (fkInstitucional)
 );
 
+
 -- Tabela componentes 
 CREATE TABLE IF NOT EXISTS componenteMonitorado (
 	idComponente INT AUTO_INCREMENT,
     fkMaquina INT,
     componente VARCHAR(50) NOT NULL, 
-    tipo VARCHAR(50) NOT NULL, 
+    tipo VARCHAR(50), 
     descricaoAdicional VARCHAR(50), 
-    modelo VARCHAR(50) NOT NULL, 
+    modelo VARCHAR(50), 
     marca VARCHAR(50), 
     capacidadeTotal FLOAT NOT NULL, 
-    unidadeMedida ENUM('GB', 'MB') NOT NULL,
+    unidadeMedida ENUM('GB', 'MB', 'MS', 'GHz', 'INT') NOT NULL,
 	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina),
     PRIMARY KEY (idComponente, fkMaquina)
 );
