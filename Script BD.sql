@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS maquina (
   numeroDeSerie CHAR(12) NOT NULL,
   ipMaquina VARCHAR(12) NOT NULL,
   sistemaOperacional VARCHAR(30) NOT NULL,
-  status VARCHAR(45) NOT NULL,
+  status TINYINT  NOT NULL, CONSTRAINT chk_status CHECK (status IN (0, 1)),
   dataCadastro VARCHAR(45) NOT NULL,
   dataDesativamento VARCHAR(45) NULL,
   fkLaboratorio INT,
