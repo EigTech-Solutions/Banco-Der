@@ -141,7 +141,7 @@ INSERT INTO acesso VALUES
 
 -- Inserindo dados na tabela parametrosMonitoramento
 INSERT INTO parametrosMonitoramento (minCpu, maxCpu, minDisco, maxDisco, minRam, maxRam, minQtdDispositivosConectados, maxQtdDispositivosConectados, minLatenciaRede, maxLatenciaRede)
-VALUES (10.0, 80.0, 20.0, 90.0, 30.0, 70.0, 5, 50, 1.0, 50.0);
+VALUES (75.0, 90.0, 75.0, 90.0, 75.0, 90.0, 3, 5, 100.0, 300.0);
 
 -- Insert da nossa instituição (Eigtech) ao sistema
 INSERT INTO instituicao VALUES
