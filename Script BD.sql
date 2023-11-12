@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS instituicao (
 CREATE TABLE IF NOT EXISTS usuario (
   idUsuario INT AUTO_INCREMENT,
   fkInstitucional INT NOT NULL,
-  nome VARCHAR(30) NOT NULL,
-  email VARCHAR(100) NOT NULL,
+  nome VARCHAR(30) NOT NULL ,
+  email VARCHAR(100) unique,
   senha VARCHAR(30) NOT NULL,
   telefone VARCHAR(14) NULL,
   PRIMARY KEY (idUsuario, fkInstitucional),
