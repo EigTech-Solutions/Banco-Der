@@ -145,7 +145,7 @@ VALUES (75.0, 90.0, 75.0, 90.0, 75.0, 90.0, 3, 5, 100.0, 300.0);
 
 -- Insert da nossa instituição (Eigtech) ao sistema
 INSERT INTO instituicao VALUES
-	(null , 'Eigtech' , '00000000000000' , 'eigtechsolutions@gmail.com' , '11912345678' , '01414001' , '595' , '5 minutos da estação Consolação' , 1);
+	(null , 'Eigtech' , '00000000000000' , 'eigtechsolutions@gmail.com ' , '11912345678' , '01414001' , '595' , '5 minutos da estação Consolação' , 1);
     
 INSERT INTO usuario VALUES
 (null , 1 , 'Admim Eigtech' , 'eigtechsolutions@gmail.com' , '2023' , '11912345678');

@@ -17,6 +17,7 @@ VALUES (2, 'Laboratorio 1', '101', 2), (2, 'Laboratorio 2', '102', 2), (2, 'Labo
 -- Inserindo dados na tabela maquina
 INSERT INTO maquina (numeroDeSerie, ipMaquina, sistemaOperacional, status, dataCadastro, fkLaboratorio, fkInstitucional)
 VALUES ('123456789012', '192.168.1.1', 'Windows 10', 1, '2023-11-02', 1, 2),
+       ('123456789018', '192.168.1.6', 'Windows 10', 1, '2023-11-02', 1, 2),
        ('234567890123', '192.168.1.2', 'Ubuntu 20.04', 1, '2023-11-02', 2, 2),
        ('345678901234', '192.168.1.3', 'Windows Server 2019', 1, '2023-11-02', 3, 2),
        ('456789012345', '192.168.1.4', 'macOS Big Sur', 1, '2023-11-02', 4, 2),
