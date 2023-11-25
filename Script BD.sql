@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS instituicao (
   numeroEndereco VARCHAR(10) NOT NULL,
   complemento VARCHAR(50) NULL,
   fkParametrosMonitoramento INT NOT NULL,
+  -- dataCadastro DATETIME NOT NULL,
   FOREIGN KEY (fkParametrosMonitoramento) REFERENCES parametrosMonitoramento (idParametrosMonitoramento)
 );
 
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   senha VARCHAR(30) NOT NULL,
   telefone VARCHAR(14) NULL,
   PRIMARY KEY (idUsuario, fkInstitucional),
-  FOREIGN KEY (fkInstitucional) REFERENCES instituicao (idInstitucional)
+  FOREIGN KEY (fkInstitucional) REFERENCES instituicao (idInstitucional) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabela acesso
@@ -57,8 +58,7 @@ CREATE TABLE IF NOT EXISTS acessoUsuario (
   fkAcesso INT NOT NULL,
   dataAcessoUsuario DATE NOT NULL,
   PRIMARY KEY (idAcessoUsuario, fkUsuario, fkInstitucional, fkAcesso),
-  FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario),
-  FOREIGN KEY (fkInstitucional) REFERENCES usuario (fkInstitucional),
+  FOREIGN KEY (fkUsuario, fkInstitucional) REFERENCES usuario (idUsuario, fkInstitucional) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (fkAcesso) REFERENCES acesso (idAcesso)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS laboratorio (
   fkResponsavel INT NOT NULL,
   PRIMARY KEY (idLaboratorio, fkInstitucional),
   FOREIGN KEY (fkInstitucional) REFERENCES instituicao (idInstitucional),
-  FOREIGN KEY (fkResponsavel) REFERENCES usuario (idUsuario)
+  FOREIGN KEY (fkResponsavel) REFERENCES usuario (idUsuario) 
 );
 
 
@@ -87,8 +87,7 @@ CREATE TABLE IF NOT EXISTS maquina (
   dataDesativamento VARCHAR(45) NULL,
   fkLaboratorio INT,
   fkInstitucional INT NOT NULL,
-  FOREIGN KEY (fkLaboratorio) REFERENCES laboratorio (idLaboratorio),
-  FOREIGN KEY (fkInstitucional) REFERENCES laboratorio (fkInstitucional)
+  FOREIGN KEY (fkLaboratorio, fkInstitucional) REFERENCES laboratorio (idLaboratorio, fkInstitucional) ON UPDATE CASCADE
 );
 
 
@@ -103,7 +102,7 @@ CREATE TABLE IF NOT EXISTS componenteMonitorado (
     marca VARCHAR(50), 
     capacidadeTotal FLOAT NOT NULL, 
     unidadeMedida ENUM('GB', 'MB', 'MS', 'GHz', 'INT') NOT NULL,
-	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina),
+	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (idComponente, fkMaquina)
 );
 
@@ -115,7 +114,7 @@ CREATE TABLE IF NOT EXISTS medicoes (
   valorConsumido FLOAT NOT NULL,
   dataHora DATETIME NOT NULL,
   PRIMARY KEY (idMonitoramento, fkMaquina, fkComponente),
-  FOREIGN KEY (fkComponente) REFERENCES componenteMonitorado (idComponente),
+  FOREIGN KEY (fkComponente) REFERENCES componenteMonitorado (idComponente) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (fkMaquina) REFERENCES componenteMonitorado (fkMaquina)
 );
 
@@ -128,7 +127,7 @@ CREATE TABLE IF NOT EXISTS Alertas (
   fkComponente INT NOT NULL,
   fkMaquina INT NOT NULL,
   PRIMARY KEY (idAlertas, fkMonitoramento, fkComponente, fkMaquina),
-  FOREIGN KEY (fkMonitoramento) REFERENCES medicoes (idMonitoramento),
+  FOREIGN KEY (fkMonitoramento) REFERENCES medicoes (idMonitoramento) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (fkComponente) REFERENCES medicoes (fkComponente),
   FOREIGN KEY (fkMaquina) REFERENCES medicoes (fkMaquina)
 ); 
