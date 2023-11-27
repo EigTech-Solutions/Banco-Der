@@ -1,6 +1,6 @@
 -- Inserindo dados na tabela instituicao
-INSERT INTO instituicao (nomeInstitucional, cnpj, email, telefone, cep, numeroEndereco, complemento, fkParametrosMonitoramento)
-VALUES ('Instituicao 1', '12345678901234', 'instituicao1@example.com', '1234567890', '12345678', '123', 'Complemento 1', 1);
+INSERT INTO instituicao (nomeInstitucional, cnpj, email, telefone, cep, numeroEndereco, complemento, fkParametrosMonitoramento, dataCadastro)
+VALUES ('Instituicao 1', '12345678901234', 'instituicao1@example.com', '1234567890', '12345678', '123', 'Complemento 1', 1, now());
 
 -- Inserindo dados na tabela usuario
 INSERT INTO usuario (fkInstitucional, nome, email, senha, telefone)
@@ -12,7 +12,7 @@ VALUES (2, 2, 2, '2023-11-02'), (2, 2, 3, '2023-11-02');
 
 -- Inserindo dados na tabela laboratorio
 INSERT INTO laboratorio (fkInstitucional, nomeSala, numeroSala, fkResponsavel)
-VALUES (2, 'Laboratorio 1', '101', 2), (2, 'Laboratorio 2', '102', 2), (2, 'Laboratorio 3', '103', 2), (2, 'Laboratorio 4', '104', 2), (2, 'Laboratorio 5', '105', 1);
+VALUES (2, 'Laboratorio 1', '101', 2), (2, 'Laboratorio 2', '102', 2), (2, 'Laboratorio 3', '103', 2), (2, 'Laboratorio 4', '104', 2), (2, 'Laboratorio 5', '105', 2);
 
 -- Inserindo dados na tabela maquina
 INSERT INTO maquina (numeroDeSerie, ipMaquina, sistemaOperacional, status, dataCadastro, fkLaboratorio, fkInstitucional)
@@ -26,10 +26,10 @@ VALUES ('123456789012', '192.168.1.1', 'Windows 10', 1, '2023-11-02', 1, 2),
 -- Inserindo dados na tabela componenteMonitorado
 INSERT INTO componenteMonitorado (fkMaquina, componente, tipo, descricaoAdicional, modelo, marca, capacidadeTotal, unidadeMedida)
 VALUES (1, 'CPU', 'Processador', 'Intel Core i5', 'i5-9600K', 'Intel', 8.0, 'GB'),
-       (2, 'Memória', 'RAM', 'HyperX', 'HyperX Fury', 'Kingston', 16.0, 'GB'),
-       (3, 'Disco', 'SSD', 'Samsung', '860 EVO', 'Samsung', 500.0, 'GB'),
+       (2, 'Memoria', 'RAM', 'HyperX', 'HyperX Fury', 'Kingston', 16.0, 'GB'),
+       (3, 'Disco Rigido', 'SSD', 'Samsung', '860 EVO', 'Samsung', 500.0, 'GB'),
        (4, 'CPU', 'Processador', 'Apple', 'M1', 'Apple', 8.0, 'GB'),
-       (5, 'Memória', 'RAM', 'Corsair', 'Vengeance LPX', 'Corsair', 32.0, 'GB');
+       (5, 'Memoria', 'RAM', 'Corsair', 'Vengeance LPX', 'Corsair', 32.0, 'GB');
 
 -- Inserindo dados na tabela medicoes
 INSERT INTO medicoes (fkMaquina, fkComponente, valorConsumido, dataHora)
