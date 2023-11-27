@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS instituicao (
   numeroEndereco VARCHAR(10) NOT NULL,
   complemento VARCHAR(50) NULL,
   fkParametrosMonitoramento INT NOT NULL,
-  -- dataCadastro DATETIME NOT NULL,
+  dataCadastro DATETIME NOT NULL,
   FOREIGN KEY (fkParametrosMonitoramento) REFERENCES parametrosMonitoramento (idParametrosMonitoramento)
 );
 

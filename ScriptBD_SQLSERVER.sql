@@ -3,7 +3,6 @@ Create database dataguard;
 USE dataguard;
 
 
-
 -- Tabela parametros_monitoramento
 CREATE TABLE  parametrosMonitoramento (
   idParametrosMonitoramento INT PRIMARY KEY Identity (1,1),
@@ -30,6 +29,7 @@ CREATE TABLE instituicao (
   numeroEndereco VARCHAR(10) NOT NULL,
   complemento VARCHAR(50) NULL,
   fkParametrosMonitoramento INT NOT NULL,
+  dataCadastro DATETIME NOT NULL,
   FOREIGN KEY (fkParametrosMonitoramento) REFERENCES parametrosMonitoramento (idParametrosMonitoramento)
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE  usuario (
   senha VARCHAR(30) NOT NULL,
   telefone VARCHAR(14) NULL,
   PRIMARY KEY (idUsuario, fkInstitucional),
-  FOREIGN KEY (fkInstitucional) REFERENCES instituicao (idInstitucional)
+  FOREIGN KEY (fkInstitucional) REFERENCES instituicao (idInstitucional) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -53,15 +53,14 @@ CREATE TABLE  acesso (
 
 
 -- Tabela acessoUsuario
--- Tabela acessoUsuario
 CREATE TABLE acessoUsuario (
   idAcessoUsuario INT IDENTITY,
   fkUsuario INT NOT NULL,
   fkInstitucional INT NOT NULL,
   fkAcesso INT NOT NULL,
   dataAcessoUsuario DATE NOT NULL,
-  PRIMARY KEY (idAcessoUsuario),
-  FOREIGN KEY (fkUsuario, fkInstitucional) REFERENCES usuario (idUsuario, fkInstitucional),
+  PRIMARY KEY (idAcessoUsuario, fkUsuario, fkInstitucional, fkAcesso),
+  FOREIGN KEY (fkUsuario, fkInstitucional) REFERENCES usuario (idUsuario, fkInstitucional) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (fkAcesso) REFERENCES acesso (idAcesso)
 );
 
@@ -77,9 +76,6 @@ CREATE TABLE laboratorio (
   FOREIGN KEY (fkResponsavel, fkInstitucional) REFERENCES usuario (idUsuario, fkInstitucional)
 );
 
-
-
-
 -- Tabela maquina
 CREATE TABLE  maquina (
   idMaquina INT PRIMARY KEY Identity,
@@ -91,7 +87,7 @@ CREATE TABLE  maquina (
   dataDesativamento VARCHAR(45) NULL,
   fkLaboratorio INT,
   fkInstitucional INT NOT NULL,
-  FOREIGN KEY (fkLaboratorio, fkInstitucional) REFERENCES laboratorio (idLaboratorio, fkInstitucional)
+  FOREIGN KEY (fkLaboratorio, fkInstitucional) REFERENCES laboratorio (idLaboratorio, fkInstitucional) ON UPDATE CASCADE
 );
 
 
@@ -106,7 +102,7 @@ CREATE TABLE  componenteMonitorado (
     marca VARCHAR(50), 
     capacidadeTotal FLOAT NOT NULL, 
 	unidadeMedida VARCHAR(10) NOT NULL CHECK (unidadeMedida IN ('GB', 'MB', 'MS', 'GHz', 'INT')),
-	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina),
+	FOREIGN KEY (fkMaquina) REFERENCES maquina (idMaquina) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (idComponente, fkMaquina)
 );
 
@@ -117,8 +113,8 @@ CREATE TABLE  medicoes (
   fkComponente INT NOT NULL,
   valorConsumido FLOAT NOT NULL,
   dataHora DATETIME NOT NULL,
-  PRIMARY KEY (idMonitoramento, fkMaquina, fkComponente), -- Chave primária composta
-  FOREIGN KEY (fkComponente, fkMaquina) REFERENCES componenteMonitorado (idComponente, fkMaquina)
+  PRIMARY KEY (idMonitoramento, fkMaquina, fkComponente),
+  FOREIGN KEY (fkComponente, fkMaquina) REFERENCES componenteMonitorado (idComponente, fkMaquina) ON DELETE CASCADE ON UPDATE CASCADE,
 );
 
 
@@ -130,8 +126,8 @@ CREATE TABLE  Alertas (
   fkMonitoramento INT NOT NULL,
   fkComponente INT NOT NULL,
   fkMaquina INT NOT NULL,
-  PRIMARY KEY (idAlertas),
-  FOREIGN KEY (fkMonitoramento, fkComponente, fkMaquina) REFERENCES medicoes (idMonitoramento, fkMaquina, fkComponente)
+  PRIMARY KEY (idAlertas, fkMonitoramento, fkComponente, fkMaquina),
+  FOREIGN KEY (fkMonitoramento, fkComponente, fkMaquina) REFERENCES medicoes (idMonitoramento, fkMaquina, fkComponente) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
  -- Insert na tabela acesso  --
